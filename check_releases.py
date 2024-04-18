@@ -4,6 +4,9 @@ import os  # 環境変数にアクセスするために必要
 from datetime import datetime, timedelta
 
 def send_to_discord(content, webhook_url):
+    if not webhook_url:
+        print("Error: The Discord webhook URL is not set.")
+        return  # URLがNoneの場合、早期に関数から抜ける
     data = {
         "content": content,
         "username": "GitHub Release Notifier"
