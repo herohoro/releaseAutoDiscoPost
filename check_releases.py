@@ -4,6 +4,7 @@ import os  # 環境変数にアクセスするために必要
 from datetime import datetime, timedelta
 
 def send_to_discord(content, webhook_url):
+    print("Received webhook URL:", webhook_url)  # デバッグ出力を追加
     if not webhook_url:
         print("Error: The Discord webhook URL is not set.")
         return  # URLがNoneの場合、早期に関数から抜ける
