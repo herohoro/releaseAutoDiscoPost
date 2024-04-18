@@ -3,6 +3,7 @@ import os
 from datetime import datetime, timedelta
 
 def send_to_discord(content, webhook_url):
+    print("Webhook URL in send_to_discord:", webhook_url)  # デバッグ出力を追加
     if not webhook_url:
         print("Error: The Discord webhook URL is not set.")
         return
@@ -14,6 +15,7 @@ def send_to_discord(content, webhook_url):
     print(f"Discord response: {response.status_code}, {response.reason}")
 
 def get_latest_release(user, repo, webhook_url):
+    print("Webhook URL in get_latest_release:", webhook_url)  # デバッグ出力を追加
     url = f"https://api.github.com/repos/{user}/{repo}/releases/latest"
     response = requests.get(url)
     if response.status_code == 200:
