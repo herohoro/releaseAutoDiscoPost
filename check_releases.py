@@ -1,13 +1,12 @@
 import requests
-import json
-import os  # 環境変数にアクセスするために必要
+import os
 from datetime import datetime, timedelta
 
 def send_to_discord(content, webhook_url):
-    print("Received webhook URL:", webhook_url)  # デバッグ出力を追加
+    print("Received webhook URL:", webhook_url)  # デバッグ出力
     if not webhook_url:
         print("Error: The Discord webhook URL is not set.")
-        return  # URLがNoneの場合、早期に関数から抜ける
+        return
     data = {
         "content": content,
         "username": "GitHub Release Notifier"
@@ -15,7 +14,7 @@ def send_to_discord(content, webhook_url):
     response = requests.post(webhook_url, json=data)
     print(f"Discord response: {response.status_code}, {response.reason}")
 
-def get_latest_release(user, repo):
+def get_latest_release(user, repo, webhook_url):
     url = f"https://api.github.com/repos/{user}/{repo}/releases/latest"
     response = requests.get(url)
     if response.status_code == 200:
@@ -25,21 +24,18 @@ def get_latest_release(user, repo):
         published_at = datetime.strptime(release_data['published_at'], "%Y-%m-%dT%H:%M:%SZ")
         now = datetime.utcnow()
         
-        if now - published_at < timedelta(days=1):  # 24時間以内に公開された場合
+        if now - published_at < timedelta(days=1):
             message = f"Latest release for {repo}: {release_name}\nRelease details: {release_url}\nPublished at: {published_at}"
-            send_to_discord(message, os.getenv('DISCORD_WEBHOOK_URL'))
+            send_to_discord(message, webhook_url)
         else:
             print(f"No new release within the last 24 hours for {repo}.")
     else:
         print(f"Failed to fetch release data for {user}/{repo}. Status code: {response.status_code}")
 
-# リポジトリのリストを定義
-repositories = [
-    ("timlrx", "tailwind-nextjs-starter-blog"),
-    ("usememos", "memos"),
-    # 他のリポジトリを追加する場合は、このリストにタプルとして追加します
-]
+# 環境変数の取得と関数の呼び出し
+webhook_url = os.getenv('DISCORD_WEBHOOK_URL')
+print("Webhook URL at main level:", webhook_url)  # デバッグ出力
 
-# 各リポジトリの最新リリース情報を取得してDiscordに投稿
+repositories = [("timlrx", "tailwind-nextjs-starter-blog"), ("usememos", "memos")]
 for user, repo in repositories:
-    get_latest_release(user, repo)
+    get_latest_release(user, repo, webhook_url)
