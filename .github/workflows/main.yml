@@ -24,4 +24,4 @@ jobs:
       - name: Check latest releases and notify Discord
         run: python check_releases.py
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
