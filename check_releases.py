@@ -3,7 +3,6 @@ import os
 from datetime import datetime, timedelta
 
 def send_to_discord(content, webhook_url):
-    print("Received webhook URL:", webhook_url)  # デバッグ出力
     if not webhook_url:
         print("Error: The Discord webhook URL is not set.")
         return
@@ -32,7 +31,7 @@ def get_latest_release(user, repo, webhook_url):
     else:
         print(f"Failed to fetch release data for {user}/{repo}. Status code: {response.status_code}")
 
-# 環境変数の取得と関数の呼び出し
+# 環境変数の取得
 webhook_url = os.getenv('DISCORD_WEBHOOK_URL')
 print("Webhook URL at main level:", webhook_url)  # デバッグ出力
 
