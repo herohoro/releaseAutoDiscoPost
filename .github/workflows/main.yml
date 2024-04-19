@@ -1,7 +1,9 @@
 name: Check Releases
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: '0 23 * * *'  # UTCの23時に実行、日本時間では翌日の午前8時
+
   
 jobs:
   check_releases:
