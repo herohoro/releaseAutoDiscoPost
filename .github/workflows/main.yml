@@ -1,9 +1,8 @@
 name: Check Releases
 
 on:
-  schedule:
-    - cron: '0 23 * * *'  # UTCの23時に実行、日本時間では翌日の午前8時
-
+  workflow_dispatch:
+  
 jobs:
   check_releases:
     runs-on: ubuntu-latest
