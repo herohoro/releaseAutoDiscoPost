@@ -29,7 +29,7 @@ def get_latest_release(user, repo, webhook_url):
             published_at = datetime.strptime(release_data['published_at'], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
             now = datetime.now(timezone.utc)
             
-            if now - published_at < timedelta(days=2):
+            if now - published_at < timedelta(days=1):
                 message = f"Latest release for {repo}: {release_name}\nRelease details: {release_url}\nPublished at: {published_at}"
                 send_to_discord(message, webhook_url)
             else:
