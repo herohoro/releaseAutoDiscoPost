@@ -26,7 +26,7 @@ def get_latest_release(user, repo, webhook_url):
             release_data = response.json()
             release_name = release_data['name']
             release_url = release_data['html_url']
-            published_at = datetime.strptime(release_data['published_at'], "%Y-%m-%dT%H:%M:%SZ")
+            published_at = datetime.strptime(release_data['published_at'], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
             now = datetime.now(timezone.utc)
             
             if now - published_at < timedelta(days=2):
