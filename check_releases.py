@@ -39,10 +39,12 @@ def get_latest_release(user, repo, webhook_url):
     except Exception as e:
         print(f"Error fetching release data: {e}")
 
-# 環境変数の取得
-webhook_url = os.getenv('DISCORD_WEBHOOK_URL')
-print(f"{datetime.now(timezone.utc)}: Webhook URL at main level:", webhook_url)
+# Repositories and their corresponding Discord webhooks
+repositories = [
+    ("yaseenmustapha", "nextjs13-app", os.getenv('DISCORD_WEBHOOK_JOUHOUYASAMPLE')),
+    ("timlrx", "tailwind-nextjs-starter-blog", os.getenv('DISCORD_WEBHOOK_YUBINKYOKU')),
+    ("usememos", "memos", os.getenv('DISCORD_WEBHOOK_YUBINKYOKU'))
+]
 
-repositories = [("timlrx", "tailwind-nextjs-starter-blog"), ("usememos", "memos")]
-for user, repo in repositories:
+for user, repo, webhook_url in repositories:
     get_latest_release(user, repo, webhook_url)
