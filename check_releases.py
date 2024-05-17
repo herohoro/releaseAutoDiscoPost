@@ -41,6 +41,7 @@ def get_latest_release(user, repo, webhook_url):
 
 # Repositories and their corresponding Discord webhooks
 repositories = [
+    ("otoyo", "astro-notion-blog", os.getenv('DISCORD_WEBHOOK_ASTRO')),
     ("yaseenmustapha", "nextjs13-app", os.getenv('DISCORD_WEBHOOK_JOUHOUYASAMPLE')),
     ("timlrx", "tailwind-nextjs-starter-blog", os.getenv('DISCORD_WEBHOOK_YUBINKYOKU')),
     ("usememos", "memos", os.getenv('DISCORD_WEBHOOK_YUBINKYOKU'))
